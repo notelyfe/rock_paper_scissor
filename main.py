@@ -124,7 +124,7 @@ class RockPaperScissor:
         if rChoice == "rock" and uChoice == "rock":
             result = "Round Draw"
         elif rChoice == "rock" and uChoice == "paper":
-            result = f"{self.user} won the round"
+            result = f"{self.user} win the round"
             self.userScore += 10
         elif rChoice == "rock" and uChoice == "scissor":
             result = "Robot win the round"
@@ -136,11 +136,11 @@ class RockPaperScissor:
         elif rChoice == "paper" and uChoice == "paper":
             result = "Round Draw"
         elif rChoice == "paper" and uChoice == "scissor":
-            result = f"{self.user} won the round"
+            result = f"{self.user} win the round"
             self.userScore += 10
 
         elif rChoice == "scissor" and uChoice == "rock":
-            result = f"{self.user} won the round"
+            result = f"{self.user} win the round"
             self.userScore += 10
         elif rChoice == "scissor" and uChoice == "paper":
             result = "Robot win the round"
