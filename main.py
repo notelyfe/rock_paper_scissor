@@ -1,5 +1,5 @@
 from tkinter import *
-import random
+from random import randint
 
 root = Tk()
 
@@ -40,9 +40,9 @@ class RockPaperScissor:
         Button(self.inputFrame, text="Start", bg="green", width=10, padx=3, pady=2, fg="white", command=lambda:self.start(usrName)).place(x=25, y=120)
 
     def start(self, usrName):
-        
-        for frame in self.mainFrame.winfo_children():
-            frame.destroy()
+
+        #destroy frame
+        self.inputFrame.destroy()
 
         self.user = usrName.get()
         if self.user == "":
@@ -60,7 +60,7 @@ class RockPaperScissor:
 
         # userScore
         self.userScoreLabel = Label(self.scoreFrame, text=f"{self.user} : 0", font="arial 12 bold", bg="#96ecfe", padx=5, pady=5)
-        self.userScoreLabel.place(x=200, y=0)
+        self.userScoreLabel.place(x=300, y=0)
 
         #gameFrame
         self.gameFrame = Frame(self.newMainFrame, width=550, height=400, padx=10, pady=10, bg="#96ecfe")
@@ -72,8 +72,8 @@ class RockPaperScissor:
         self.userChoiceImage = Label(self.gameFrame, image=self.defaultImage)
         self.userChoiceImage.place(x=300, y=0)
 
-        self.resultLabel = Label(self.newMainFrame, text=f"Round {self.round}", font="arial 12 bold", padx=5, pady=5, bg="#96ecfe", width=30)
-        self.resultLabel.place(x=110, y=320)
+        self.resultLabel = Label(self.newMainFrame, text=f"Round {self.round}", font="arial 12 bold", padx=5, pady=5, bg="#96ecfe", width=40)
+        self.resultLabel.place(x=60, y=320)
 
         self.choiceFrame = Frame(self.gameFrame, bg="#79e7f6", width=400, height=75, padx=10, pady=10)
         self.choiceFrame.place(x=60, y=300)
@@ -95,8 +95,7 @@ class RockPaperScissor:
 
         # robo selection of choice and image
         options = ["rock", "paper", "scissor"]
-        i = random.randint(0, 2)
-        roboChoice = options[i]
+        roboChoice = options[randint(0, 2)]
 
         if roboChoice == "rock":
             choiceImageRobo = self.rockImage
@@ -105,10 +104,7 @@ class RockPaperScissor:
         else:
             choiceImageRobo = self.scissorImage
 
-        # destroy previous image
-        self.roboChoiceImage.destroy()
-        self.roboChoiceImage = Label(self.gameFrame, image=choiceImageRobo)
-        self.roboChoiceImage.place(x=0, y=0)
+        self.roboChoiceImage.config(image=choiceImageRobo)
 
         # user selection of choice and image
         if usrChoice == "rock":
@@ -118,10 +114,7 @@ class RockPaperScissor:
         else:
             choiceImageUsr = self.scissorImage
 
-        # destroy previous image    
-        self.userChoiceImage.destroy() 
-        self.userChoiceImage = Label(self.gameFrame, image=choiceImageUsr)
-        self.userChoiceImage.place(x=300, y=0)
+        self.userChoiceImage.config(image=choiceImageUsr)
 
         self.result(roboChoice, usrChoice)
 
@@ -129,7 +122,7 @@ class RockPaperScissor:
         result = ""
 
         if rChoice == "rock" and uChoice == "rock":
-            result = "round draw"
+            result = "Round Draw"
         elif rChoice == "rock" and uChoice == "paper":
             result = f"{self.user} won the round"
             self.userScore += 10
@@ -141,7 +134,7 @@ class RockPaperScissor:
             result = "Robot win the round"
             self.roboScore += 10
         elif rChoice == "paper" and uChoice == "paper":
-            result = "round draw"
+            result = "Round Draw"
         elif rChoice == "paper" and uChoice == "scissor":
             result = f"{self.user} won the round"
             self.userScore += 10
@@ -153,38 +146,21 @@ class RockPaperScissor:
             result = "Robot win the round"
             self.roboScore += 10
         elif rChoice == "scissor" and uChoice == "scissor":
-            result = "round draw"
+            result = "Round Draw"
             
-        self.resultLabel.destroy()
-        self.roboScoreLabel.destroy()
-        self.userScoreLabel.destroy()
-
-        self.roboScoreLabel = Label(self.scoreFrame, text=f"Robot : {self.roboScore}", font="arial 12 bold", bg="#96ecfe", padx=5, pady=5)
-        self.roboScoreLabel.place(x=5, y=0)
-
-        self.userScoreLabel = Label(self.scoreFrame, text=f"{self.user} : {self.userScore}", font="arial 12 bold", bg="#96ecfe", padx=5, pady=5)
-        self.userScoreLabel.place(x=200, y=0)
-
-        self.resultLabel = Label(self.newMainFrame, text=result, font="arial 12 bold", padx=5, pady=5, bg="#96ecfe", width=30)
-        self.resultLabel.place(x=110, y=320)
+        self.roboScoreLabel.config(text=f"Robot : {self.roboScore}")
+        self.userScoreLabel.config(text=f"{self.user} : {self.userScore}")
+        self.resultLabel.config(text=result)
 
     def nextRound(self):
 
         self.choiceFrame.destroy()
-        self.roboChoiceImage.destroy()
-        self.userChoiceImage.destroy()
-        self.resultLabel.destroy()
 
         self.round += 1
 
-        self.roboChoiceImage = Label(self.gameFrame, image=self.defaultImage)
-        self.roboChoiceImage.place(x=0, y=0)
-
-        self.userChoiceImage = Label(self.gameFrame, image=self.defaultImage)
-        self.userChoiceImage.place(x=300, y=0)
-
-        self.resultLabel = Label(self.newMainFrame, text=f"Round {self.round}", font="arial 12 bold", padx=5, pady=5, bg="#96ecfe", width=30)
-        self.resultLabel.place(x=110, y=320)
+        self.roboChoiceImage.config(image=self.defaultImage)
+        self.userChoiceImage.config(image=self.defaultImage)
+        self.resultLabel.config(text=f"Round {self.round}")
 
         self.choiceFrame = Frame(self.gameFrame, bg="#79e7f6", width=400, height=75, padx=10, pady=10)
         self.choiceFrame.place(x=60, y=300)
